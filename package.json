@@ -1,16 +1,28 @@
 {
-  "name": "nodejs",
+  "name": "server-testing",
   "version": "1.0.0",
-  "description": "",
+  "description": "this is the testing and learning of nodeJs",
   "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node server.js"
   },
-  "author": "",
+  "author": "bipin",
   "license": "ISC",
   "dependencies": {
     "backbone": "^1.4.0",
     "express": "^4.17.2"
-  }
+  },
+  "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bipin-01/nodeJs.git"
+  },
+  "keywords": [
+    "test"
+  ],
+  "bugs": {
+    "url": "https://github.com/bipin-01/nodeJs/issues"
+  },
+  "homepage": "https://github.com/bipin-01/nodeJs#readme"
 }
