@@ -1,19 +1,48 @@
-const { fstat } = require('fs');
-const http = require('http');
-const dt = require("./dateTime");
-const fs = require("fs");
+const express = require("express");
+const bodyParser = require("body-parser");
+const path = require("path");
+const app = express();
+const router = express.Router();
 
-const port = process.env.PORT || 3000;
+const port = process.env.PORT || 5000;
 
-const server = http.createServer((req, res) => {
-    fs.readFile('./demofile1.html', function(err, data) {
-        res.writeHead(200, { "Content-Type": "text/html" });
-        res.write(data);
-        res.end();
-    });
+app.use(bodyParser.json());
+app.use(express.urlencoded({ extended: true }));
+
+router.get("/", (req, res) => {
+    res.sendFile(path.join(__dirname, "/login.html"));
 });
 
-server.listen(port, () => {
-    console.log(dt.myDateTime());
-    console.log(`server running at port ${port}`);
+
+router.post("/login", (req, res) => {
+    const username = "abc";
+    const password = "efg";
+
+    if (req.body.username === username && req.body.password === password) {
+        res.status(200);
+        res.sendFile(path.join(__dirname, "/login.html"));
+    } else {
+        console.log("fail");
+        res.send("fail")
+    }
+
+});
+
+router.post("/login", (req, res) => {
+    console.log(req.body);
+    res.send(req.body);
+});
+
+router.post("/register", (req, res) => {
+    res.send("Trying to register!");
+});
+
+router.get("/logout", (req, res) => {
+    res.send("Trying to logout");
+});
+
+app.use("/", router);
+
+app.listen(port, () => {
+    console.log(`Server running at port ${port}`);
 });
