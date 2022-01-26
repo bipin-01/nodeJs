@@ -19,11 +19,13 @@ router.post("/login", (req, res) => {
     const password = "efg";
 
     if (req.body.username === username && req.body.password === password) {
-        res.status(200);
-        res.sendFile(path.join(__dirname, "/login.html"));
+        const data = require("./data.json");
+        console.log("success");
+        res.status(200).send(data);
+        //res.sendFile(path.join(__dirname, "/login.html"));
     } else {
         console.log("fail");
-        res.send("fail")
+        res.status(500).send("fail");
     }
 
 });
