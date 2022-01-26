@@ -1,6 +1,7 @@
 const express = require("express");
 const bodyParser = require("body-parser");
 const path = require("path");
+const fs = require("fs");
 const app = express();
 const router = express.Router();
 
@@ -28,6 +29,37 @@ router.post("/login", (req, res) => {
         res.status(500).send("fail");
     }
 
+});
+
+router.get("/todos", (req, res) => {
+    const data = fs.readFileSync("data.json");
+    data = JSON.parse(data);
+
+    res.status(200).send(data);
+});
+
+router.post("/todos", (req, res) => {
+    let data = fs.readFileSync("data.json");
+    data = JSON.parse(data);
+
+    data.push({
+        title: req.body.title,
+        description: req.body.description,
+        status: req.body.status,
+    });
+    let newData = JSON.stringify(data);
+    fs.writeFile("data.json", newData, (err) => {
+        if (err) throw err;
+        console.log("New data added");
+    });
+
+    res.status(200).send(data);
+});
+
+router.get("/todos", (req, res) => {
+    const data = require("./data.json");
+    //es.sendFile(path.join(__dirname, "/addToDO.html"));
+    res.status(200).send(data);
 });
 
 router.post("/login", (req, res) => {
